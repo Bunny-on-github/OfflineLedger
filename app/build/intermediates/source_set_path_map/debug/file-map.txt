@@ -1,0 +1,49 @@
+com.offlineledger.app-room-ktx-2.6.1-0 C:\Users\Yuvraj\.gradle\caches\transforms-3\0069fda4e0fcaf355bb10f3e6b3cf479\transformed\room-ktx-2.6.1\res
+com.offlineledger.app-lifecycle-livedata-core-ktx-2.7.0-1 C:\Users\Yuvraj\.gradle\caches\transforms-3\0d2fb35ab702a5b7449f874c312609bf\transformed\lifecycle-livedata-core-ktx-2.7.0\res
+com.offlineledger.app-lifecycle-livedata-2.7.0-2 C:\Users\Yuvraj\.gradle\caches\transforms-3\146415340bd3d0c86ea09309809b3e29\transformed\lifecycle-livedata-2.7.0\res
+com.offlineledger.app-material-1.11.0-3 C:\Users\Yuvraj\.gradle\caches\transforms-3\158e238f407d6667fbc6f1d7e9bbe619\transformed\material-1.11.0\res
+com.offlineledger.app-emoji2-1.2.0-4 C:\Users\Yuvraj\.gradle\caches\transforms-3\1652c4c0a30d52a85b83c2399ab532ed\transformed\emoji2-1.2.0\res
+com.offlineledger.app-constraintlayout-2.1.4-5 C:\Users\Yuvraj\.gradle\caches\transforms-3\1a5285a2e3dccfba99273ce4b0d04bf4\transformed\constraintlayout-2.1.4\res
+com.offlineledger.app-sqlite-framework-2.4.0-6 C:\Users\Yuvraj\.gradle\caches\transforms-3\2ee6f8c5a293a918ecd77969023d5700\transformed\sqlite-framework-2.4.0\res
+com.offlineledger.app-core-1.12.0-7 C:\Users\Yuvraj\.gradle\caches\transforms-3\38d8680aa6673a791c816129c4d9c472\transformed\core-1.12.0\res
+com.offlineledger.app-lifecycle-service-2.7.0-8 C:\Users\Yuvraj\.gradle\caches\transforms-3\394392fd1739e6245a7d0439a615433b\transformed\lifecycle-service-2.7.0\res
+com.offlineledger.app-emoji2-views-helper-1.2.0-9 C:\Users\Yuvraj\.gradle\caches\transforms-3\3d11de308e08dcebe256ec2bc2aa8ab1\transformed\emoji2-views-helper-1.2.0\res
+com.offlineledger.app-appcompat-resources-1.6.1-10 C:\Users\Yuvraj\.gradle\caches\transforms-3\40bec1602de00886fcabdd7dc1a706ac\transformed\appcompat-resources-1.6.1\res
+com.offlineledger.app-cardview-1.0.0-11 C:\Users\Yuvraj\.gradle\caches\transforms-3\527c2641df9d6059bd1812f0610e3141\transformed\cardview-1.0.0\res
+com.offlineledger.app-fragment-ktx-1.6.2-12 C:\Users\Yuvraj\.gradle\caches\transforms-3\58678ca4cf27d21998ababee11599467\transformed\fragment-ktx-1.6.2\res
+com.offlineledger.app-core-runtime-2.2.0-13 C:\Users\Yuvraj\.gradle\caches\transforms-3\599b3501f1f586ce6c54b14acbfc34d0\transformed\core-runtime-2.2.0\res
+com.offlineledger.app-lifecycle-runtime-ktx-2.7.0-14 C:\Users\Yuvraj\.gradle\caches\transforms-3\5dcc3de3fbb28cd3db80db34641cb44c\transformed\lifecycle-runtime-ktx-2.7.0\res
+com.offlineledger.app-lifecycle-viewmodel-ktx-2.7.0-15 C:\Users\Yuvraj\.gradle\caches\transforms-3\6009307b105cf94d45166f6b23c71b26\transformed\lifecycle-viewmodel-ktx-2.7.0\res
+com.offlineledger.app-profileinstaller-1.3.0-16 C:\Users\Yuvraj\.gradle\caches\transforms-3\6924fa5f5351d6479e5932da807bf5c6\transformed\profileinstaller-1.3.0\res
+com.offlineledger.app-activity-ktx-1.8.2-17 C:\Users\Yuvraj\.gradle\caches\transforms-3\6cc615f1f70ace3a6202f8a6ba762432\transformed\activity-ktx-1.8.2\res
+com.offlineledger.app-annotation-experimental-1.3.0-18 C:\Users\Yuvraj\.gradle\caches\transforms-3\8130256c7130c2e3243476fbb2887ac5\transformed\annotation-experimental-1.3.0\res
+com.offlineledger.app-startup-runtime-1.1.1-19 C:\Users\Yuvraj\.gradle\caches\transforms-3\84fed8869e3cc9407e9fe1a6da4f79e9\transformed\startup-runtime-1.1.1\res
+com.offlineledger.app-recyclerview-1.3.2-20 C:\Users\Yuvraj\.gradle\caches\transforms-3\90b63a984ad31d08eb7a79787c36aefd\transformed\recyclerview-1.3.2\res
+com.offlineledger.app-lifecycle-runtime-2.7.0-21 C:\Users\Yuvraj\.gradle\caches\transforms-3\a16e4e15c2e269c04015a355f9a5a57a\transformed\lifecycle-runtime-2.7.0\res
+com.offlineledger.app-sqlite-2.4.0-22 C:\Users\Yuvraj\.gradle\caches\transforms-3\ad56fa3af6f6ed88ef6c09df4624cf3c\transformed\sqlite-2.4.0\res
+com.offlineledger.app-savedstate-1.2.1-23 C:\Users\Yuvraj\.gradle\caches\transforms-3\b053b487c7d6a0b64381ee7d14225130\transformed\savedstate-1.2.1\res
+com.offlineledger.app-customview-poolingcontainer-1.0.0-24 C:\Users\Yuvraj\.gradle\caches\transforms-3\b905432fb544e568714b3aacfc0929ec\transformed\customview-poolingcontainer-1.0.0\res
+com.offlineledger.app-fragment-1.6.2-25 C:\Users\Yuvraj\.gradle\caches\transforms-3\bd580a3f5d1071c65a779af863d7c59c\transformed\fragment-1.6.2\res
+com.offlineledger.app-appcompat-1.6.1-26 C:\Users\Yuvraj\.gradle\caches\transforms-3\c3b3d4244363cfcdf7f9d44efce096cd\transformed\appcompat-1.6.1\res
+com.offlineledger.app-lifecycle-viewmodel-savedstate-2.7.0-27 C:\Users\Yuvraj\.gradle\caches\transforms-3\c8b4b27634bda12b756925c449925cca\transformed\lifecycle-viewmodel-savedstate-2.7.0\res
+com.offlineledger.app-savedstate-ktx-1.2.1-28 C:\Users\Yuvraj\.gradle\caches\transforms-3\cdd8436b2bfc43028cac9f7a36a1eb85\transformed\savedstate-ktx-1.2.1\res
+com.offlineledger.app-lifecycle-viewmodel-2.7.0-29 C:\Users\Yuvraj\.gradle\caches\transforms-3\ce637b62817f070d1c11dcc7a29628a5\transformed\lifecycle-viewmodel-2.7.0\res
+com.offlineledger.app-drawerlayout-1.1.1-30 C:\Users\Yuvraj\.gradle\caches\transforms-3\d0db120099e94a167a605f4043839843\transformed\drawerlayout-1.1.1\res
+com.offlineledger.app-room-runtime-2.6.1-31 C:\Users\Yuvraj\.gradle\caches\transforms-3\d2d48dd98adeb3d0d18d109726a74a22\transformed\room-runtime-2.6.1\res
+com.offlineledger.app-core-ktx-1.12.0-32 C:\Users\Yuvraj\.gradle\caches\transforms-3\d7d91681bf33569df6d957ebcca3e30b\transformed\core-ktx-1.12.0\res
+com.offlineledger.app-lifecycle-process-2.7.0-33 C:\Users\Yuvraj\.gradle\caches\transforms-3\d80fb3a2cf3d9c4d910519d9cdf1ca9a\transformed\lifecycle-process-2.7.0\res
+com.offlineledger.app-viewpager2-1.1.0-beta02-34 C:\Users\Yuvraj\.gradle\caches\transforms-3\d820b2e137eee60083c1f84949870210\transformed\viewpager2-1.1.0-beta02\res
+com.offlineledger.app-lifecycle-livedata-ktx-2.7.0-35 C:\Users\Yuvraj\.gradle\caches\transforms-3\dba852084517e4e103d6a8c325701e17\transformed\lifecycle-livedata-ktx-2.7.0\res
+com.offlineledger.app-work-runtime-2.9.0-36 C:\Users\Yuvraj\.gradle\caches\transforms-3\e1e9909dfe765d046e73e29f38c623d9\transformed\work-runtime-2.9.0\res
+com.offlineledger.app-activity-1.8.2-37 C:\Users\Yuvraj\.gradle\caches\transforms-3\e889d401e91b90b954d533dac67d97b9\transformed\activity-1.8.2\res
+com.offlineledger.app-lifecycle-livedata-core-2.7.0-38 C:\Users\Yuvraj\.gradle\caches\transforms-3\e8970625d1b5f6a56198507eafb4a9d0\transformed\lifecycle-livedata-core-2.7.0\res
+com.offlineledger.app-work-runtime-ktx-2.9.0-39 C:\Users\Yuvraj\.gradle\caches\transforms-3\f4c3618b491d4fd7d823ec80c63bf99c\transformed\work-runtime-ktx-2.9.0\res
+com.offlineledger.app-transition-1.2.0-40 C:\Users\Yuvraj\.gradle\caches\transforms-3\fa30eea0f33d7b70fd3c94725c549572\transformed\transition-1.2.0\res
+com.offlineledger.app-coordinatorlayout-1.1.0-41 C:\Users\Yuvraj\.gradle\caches\transforms-3\ff9403bb4a8fef6ed4d16e0bf8dae5e8\transformed\coordinatorlayout-1.1.0\res
+com.offlineledger.app-pngs-42 C:\Users\Yuvraj\Downloads\VS Code\OfflineLedger\app\build\generated\res\pngs\debug
+com.offlineledger.app-resValues-43 C:\Users\Yuvraj\Downloads\VS Code\OfflineLedger\app\build\generated\res\resValues\debug
+com.offlineledger.app-packageDebugResources-44 C:\Users\Yuvraj\Downloads\VS Code\OfflineLedger\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
+com.offlineledger.app-packageDebugResources-45 C:\Users\Yuvraj\Downloads\VS Code\OfflineLedger\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
+com.offlineledger.app-merged_res-46 C:\Users\Yuvraj\Downloads\VS Code\OfflineLedger\app\build\intermediates\merged_res\debug
+com.offlineledger.app-debug-47 C:\Users\Yuvraj\Downloads\VS Code\OfflineLedger\app\src\debug\res
+com.offlineledger.app-main-48 C:\Users\Yuvraj\Downloads\VS Code\OfflineLedger\app\src\main\res

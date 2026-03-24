@@ -1,0 +1,34 @@
+[
+    {
+        "merged": "com.offlineledger.app-mergeDebugResources-45:/layout/item_transaction.xml",
+        "source": "com.offlineledger.app-main-48:/layout/item_transaction.xml"
+    },
+    {
+        "merged": "com.offlineledger.app-mergeDebugResources-45:/layout/activity_home.xml",
+        "source": "com.offlineledger.app-main-48:/layout/activity_home.xml"
+    },
+    {
+        "merged": "com.offlineledger.app-mergeDebugResources-45:/layout/item_person.xml",
+        "source": "com.offlineledger.app-main-48:/layout/item_person.xml"
+    },
+    {
+        "merged": "com.offlineledger.app-mergeDebugResources-45:/layout/sheet_add_transaction.xml",
+        "source": "com.offlineledger.app-main-48:/layout/sheet_add_transaction.xml"
+    },
+    {
+        "merged": "com.offlineledger.app-mergeDebugResources-45:/layout/item_date_header.xml",
+        "source": "com.offlineledger.app-main-48:/layout/item_date_header.xml"
+    },
+    {
+        "merged": "com.offlineledger.app-mergeDebugResources-45:/layout/activity_settings.xml",
+        "source": "com.offlineledger.app-main-48:/layout/activity_settings.xml"
+    },
+    {
+        "merged": "com.offlineledger.app-mergeDebugResources-45:/layout/sheet_add_person.xml",
+        "source": "com.offlineledger.app-main-48:/layout/sheet_add_person.xml"
+    },
+    {
+        "merged": "com.offlineledger.app-mergeDebugResources-45:/layout/activity_transaction.xml",
+        "source": "com.offlineledger.app-main-48:/layout/activity_transaction.xml"
+    }
+]

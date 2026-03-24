@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="card_radius">12dp</dimen>
+    <dimen name="sheet_radius">20dp</dimen>
+    <dimen name="avatar_size">44dp</dimen>
+    <dimen name="avatar_size_sm">36dp</dimen>
+    <dimen name="screen_padding">16dp</dimen>
+    <dimen name="item_padding_v">11dp</dimen>
+    <dimen name="item_padding_h">12dp</dimen>
+    <dimen name="fab_margin">20dp</dimen>
+    <dimen name="divider_height">0.5dp</dimen>
+</resources>
