@@ -9,15 +9,18 @@ import kotlinx.coroutines.launch
 
 class TransactionViewModel(
     private val repo: LedgerRepository,
-    val person: Person
+    person: Person
 ) : ViewModel() {
 
+    private val _person = MutableStateFlow(person)
+    val person: StateFlow<Person> = _person.asStateFlow()
+
     val transactions: StateFlow<List<Transaction>> =
-        repo.getTransactionsForPerson(person.id)
+        repo.getTransactionsForPerson(_person.value.id)
             .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
     val balance: StateFlow<Double> =
-        repo.getBalanceForPerson(person.id)
+        repo.getBalanceForPerson(_person.value.id)
             .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), 0.0)
 
     fun addTransaction(
@@ -28,7 +31,7 @@ class TransactionViewModel(
     ) = viewModelScope.launch {
         repo.addTransaction(
             Transaction(
-                personId = person.id,
+                personId = _person.value.id,
                 amount = amount,
                 label = label.trim(),
                 details = details.trim(),
@@ -42,7 +45,31 @@ class TransactionViewModel(
     fun deleteTransaction(t: Transaction) = viewModelScope.launch { repo.deleteTransaction(t) }
 
     fun setReminderEnabled(enabled: Boolean) = viewModelScope.launch {
-        repo.setReminderEnabled(person.id, enabled)
+        val updated = _person.value.copy(reminderEnabled = enabled)
+        repo.setReminderEnabled(updated.id, enabled)
+        _person.value = updated
+    }
+
+    fun updateReminderConfig(
+        enabled: Boolean,
+        frequency: String,
+        prefix: String,
+        suffix: String
+    ) = viewModelScope.launch {
+        val updated = _person.value.copy(
+            reminderEnabled = enabled,
+            reminderFrequency = frequency,
+            reminderMessagePrefix = prefix,
+            reminderMessageSuffix = suffix
+        )
+        repo.updateReminderConfig(
+            personId = updated.id,
+            enabled = enabled,
+            frequency = frequency,
+            prefix = prefix,
+            suffix = suffix
+        )
+        _person.value = updated
     }
 }
 

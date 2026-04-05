@@ -31,6 +31,24 @@ interface PersonDao {
     @Query("UPDATE persons SET reminderEnabled = :enabled WHERE id = :personId")
     suspend fun setReminderEnabled(personId: Long, enabled: Boolean)
 
+    @Query(
+        """
+        UPDATE persons
+        SET reminderEnabled = :enabled,
+            reminderFrequency = :frequency,
+            reminderMessagePrefix = :prefix,
+            reminderMessageSuffix = :suffix
+        WHERE id = :personId
+        """
+    )
+    suspend fun updateReminderConfig(
+        personId: Long,
+        enabled: Boolean,
+        frequency: String,
+        prefix: String,
+        suffix: String
+    )
+
     @Query("SELECT * FROM persons WHERE reminderEnabled = 1 AND mobileNumber != ''")
     suspend fun getReminderEnabledPersons(): List<Person>
 

@@ -111,10 +111,12 @@
 
                     <!-- Reminder toggle -->
                     <LinearLayout
+                        android:id="@+id/reminderContainer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:gravity="center">
+                        android:gravity="center_horizontal"
+                        android:paddingStart="8dp">
 
                         <com.google.android.material.switchmaterial.SwitchMaterial
                             android:id="@+id/switchReminder"
@@ -128,9 +130,39 @@
                             android:textColor="@color/hint_text"
                             android:textSize="9sp"
                             android:fontFamily="monospace"/>
+
+                        <TextView
+                            android:id="@+id/tvReminderSummary"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/hint_text"
+                            android:textSize="10sp"
+                            android:layout_marginTop="4dp"
+                            android:text="Weekly, 10:00 AM"/>
+
+                        <TextView
+                            android:id="@+id/btnConfigureReminder"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Configure"
+                            android:textAllCaps="true"
+                            android:textStyle="bold"
+                            android:textColor="@color/color_positive"
+                            android:textSize="10sp"
+                            android:paddingTop="6dp"/>
                     </LinearLayout>
 
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvReminderUnavailable"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Add mobile number to enable reminders"
+                    android:textSize="11sp"
+                    android:textColor="@color/hint_text"
+                    android:layout_marginTop="10dp"
+                    android:visibility="gone"/>
             </LinearLayout>
 
             <View

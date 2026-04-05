@@ -13,5 +13,19 @@ data class Person(
     val mobileNumber: String = "",
     val isBlacklisted: Boolean = false,
     val reminderEnabled: Boolean = false,
+    val reminderFrequency: String = ReminderFrequency.WEEKLY.value,
+    val reminderMessagePrefix: String = "You have a pending balance of",
+    val reminderMessageSuffix: String = "Please pay at your earliest convenience.",
     val createdAt: Long = System.currentTimeMillis()
 ) : Parcelable
+
+enum class ReminderFrequency(val value: String) {
+    DAILY("daily"),
+    WEEKLY("weekly"),
+    TEN_DAYS("ten_days");
+
+    companion object {
+        fun fromValue(value: String?): ReminderFrequency =
+            entries.firstOrNull { it.value.equals(value, ignoreCase = true) } ?: WEEKLY
+    }
+}

@@ -5,10 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import androidx.fragment.app.DialogFragment
 import com.offlineledger.databinding.SheetAddPersonBinding
 
-class AddPersonSheet : BottomSheetDialogFragment() {
+class AddPersonSheet : DialogFragment() {
 
     fun interface OnPersonAddedListener {
         fun onPersonAdded(name: String, mobileNumber: String)
@@ -57,6 +57,14 @@ class AddPersonSheet : BottomSheetDialogFragment() {
     }
 
     override fun onDestroyView() { super.onDestroyView(); _b = null }
+
+    override fun onStart() {
+        super.onStart()
+        dialog?.window?.setLayout(
+            (resources.displayMetrics.widthPixels * 0.92f).toInt(),
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+    }
 
     companion object {
         private const val ARG_NAME = "arg_name"
