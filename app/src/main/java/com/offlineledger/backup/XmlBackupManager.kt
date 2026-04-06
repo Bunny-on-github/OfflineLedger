@@ -71,7 +71,7 @@ object XmlBackupManager {
 
         ser.startTag(null, "ledger")
         ser.attribute(null, "exportedAt", Date().toString())
-        ser.attribute(null, "version", "3")
+        ser.attribute(null, "version", "4")
 
         for (p in persons) {
             val bal = repo.getBalanceForPersonSync(p.id)
@@ -81,6 +81,9 @@ object XmlBackupManager {
             ser.attribute(null, "mobileNumber", p.mobileNumber)
             ser.attribute(null, "isBlacklisted", p.isBlacklisted.toString())
             ser.attribute(null, "reminderEnabled", p.reminderEnabled.toString())
+            ser.attribute(null, "reminderFrequency", p.reminderFrequency)
+            ser.attribute(null, "reminderMessagePrefix", p.reminderMessagePrefix)
+            ser.attribute(null, "reminderMessageSuffix", p.reminderMessageSuffix)
             ser.attribute(null, "createdAt", p.createdAt.toString())
             ser.attribute(null, "balance", String.format("%.2f", bal))
 
@@ -163,6 +166,11 @@ object XmlBackupManager {
                             val mobileNumber = parser.getAttributeValue(null, "mobileNumber") ?: ""
                             val isBlacklisted = parser.getAttributeValue(null, "isBlacklisted")?.toBooleanStrictOrNull() ?: false
                             val reminderEnabled = parser.getAttributeValue(null, "reminderEnabled")?.toBooleanStrictOrNull() ?: false
+                            val reminderFrequency = parser.getAttributeValue(null, "reminderFrequency") ?: "weekly"
+                            val reminderMessagePrefix = parser.getAttributeValue(null, "reminderMessagePrefix")
+                                ?: "You have a pending balance of"
+                            val reminderMessageSuffix = parser.getAttributeValue(null, "reminderMessageSuffix")
+                                ?: "Please pay at your earliest convenience."
                             val createdAt = parser.getAttributeValue(null, "createdAt")?.toLongOrNull()
                                 ?: System.currentTimeMillis()
 
@@ -176,6 +184,9 @@ object XmlBackupManager {
                                     mobileNumber = mobileNumber,
                                     isBlacklisted = isBlacklisted,
                                     reminderEnabled = reminderEnabled,
+                                    reminderFrequency = reminderFrequency,
+                                    reminderMessagePrefix = reminderMessagePrefix,
+                                    reminderMessageSuffix = reminderMessageSuffix,
                                     createdAt = createdAt
                                 )
                                 newPersonId = repo.insertPersonDirect(person)

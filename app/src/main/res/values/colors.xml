@@ -35,4 +35,7 @@
     <color name="bg_input">#0F0F10</color>
     <color name="blacklist_bg">#2D1A1A</color>
     <color name="blacklist_text">#FF6B6B</color>
+    <color name="option_menu_bg">#F6F7FB</color>
+    <color name="option_menu_text">#1C2430</color>
+    <color name="option_menu_danger">#B3261E</color>
 </resources>

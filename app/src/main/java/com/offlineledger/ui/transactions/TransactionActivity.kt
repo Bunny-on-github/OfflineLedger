@@ -10,8 +10,10 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.offlineledger.MyApp
 import com.offlineledger.R
 import com.offlineledger.data.model.Person
+import com.offlineledger.data.model.ReminderFrequency
 import com.offlineledger.data.model.Transaction
 import com.offlineledger.databinding.ActivityTransactionBinding
+import com.offlineledger.databinding.DialogReminderConfigBinding
 import com.offlineledger.ui.sheets.AddTransactionSheet
 import com.offlineledger.utils.formatCurrency
 import kotlinx.coroutines.flow.collectLatest
@@ -34,24 +36,27 @@ class TransactionActivity : AppCompatActivity() {
         setSupportActionBar(b.toolbar)
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
-            title = vm.person.name
+            title = vm.person.value.name
         }
 
         // ── Person info card ──
-        b.tvPersonName.text = vm.person.name
-        val mobile = vm.person.mobileNumber
+        val mobile = vm.person.value.mobileNumber
         if (mobile.isNotBlank()) {
             b.tvMobile.text = "📱 $mobile"
             b.tvMobile.visibility = View.VISIBLE
+            b.reminderContainer.visibility = View.VISIBLE
+            b.tvReminderUnavailable.visibility = View.GONE
         } else {
             b.tvMobile.visibility = View.GONE
+            b.reminderContainer.visibility = View.GONE
+            b.tvReminderUnavailable.visibility = View.VISIBLE
         }
 
         // ── Reminder toggle ──
-        b.switchReminder.isChecked = vm.person.reminderEnabled
         b.switchReminder.setOnCheckedChangeListener { _, checked ->
             vm.setReminderEnabled(checked)
         }
+        b.btnConfigureReminder.setOnClickListener { showReminderConfigDialog() }
 
         adapter = TransactionAdapter(
             onEdit = { t -> showEditSheet(t) },
@@ -73,6 +78,18 @@ class TransactionActivity : AppCompatActivity() {
 
     private fun observe() {
         lifecycleScope.launch {
+            vm.person.collectLatest { person ->
+                b.tvPersonName.text = person.name
+                b.switchReminder.isChecked = person.reminderEnabled
+                b.tvReminderSummary.text = when (ReminderFrequency.fromValue(person.reminderFrequency)) {
+                    ReminderFrequency.DAILY -> "Daily • 10:00 AM"
+                    ReminderFrequency.WEEKLY -> "Weekly • Sunday 10:00 AM"
+                    ReminderFrequency.TEN_DAYS -> "1st/11th/21st/31st • 10:00 AM"
+                }
+            }
+        }
+
+        lifecycleScope.launch {
             vm.transactions.collectLatest { list ->
                 adapter.submitList(list.toGroupedItems())
                 b.tvEmpty.visibility =
@@ -93,6 +110,39 @@ class TransactionActivity : AppCompatActivity() {
                 )
             }
         }
+    }
+
+    private fun showReminderConfigDialog() {
+        val person = vm.person.value
+        if (person.mobileNumber.isBlank()) return
+
+        val dialogBinding = DialogReminderConfigBinding.inflate(layoutInflater)
+        when (ReminderFrequency.fromValue(person.reminderFrequency)) {
+            ReminderFrequency.DAILY -> dialogBinding.rgFrequency.check(dialogBinding.rbDaily.id)
+            ReminderFrequency.WEEKLY -> dialogBinding.rgFrequency.check(dialogBinding.rbWeekly.id)
+            ReminderFrequency.TEN_DAYS -> dialogBinding.rgFrequency.check(dialogBinding.rbTenDays.id)
+        }
+        dialogBinding.etPrefix.setText(person.reminderMessagePrefix)
+        dialogBinding.etSuffix.setText(person.reminderMessageSuffix)
+
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Reminder Settings")
+            .setView(dialogBinding.root)
+            .setPositiveButton("Save") { _, _ ->
+                val frequency = when (dialogBinding.rgFrequency.checkedRadioButtonId) {
+                    dialogBinding.rbDaily.id -> ReminderFrequency.DAILY.value
+                    dialogBinding.rbTenDays.id -> ReminderFrequency.TEN_DAYS.value
+                    else -> ReminderFrequency.WEEKLY.value
+                }
+                vm.updateReminderConfig(
+                    enabled = b.switchReminder.isChecked,
+                    frequency = frequency,
+                    prefix = dialogBinding.etPrefix.text?.toString()?.trim().orEmpty(),
+                    suffix = dialogBinding.etSuffix.text?.toString()?.trim().orEmpty()
+                )
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
     }
 
     private fun showAddSheet() {

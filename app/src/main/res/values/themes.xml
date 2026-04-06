@@ -31,4 +31,10 @@
         <item name="android:textSize">9sp</item>
         <item name="chipMinHeight">28dp</item>
     </style>
+
+    <style name="ThemeOverlay.OfflineLedger.OptionMenuDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="colorSurface">@color/option_menu_bg</item>
+        <item name="colorOnSurface">@color/option_menu_text</item>
+        <item name="android:textColorPrimary">@color/option_menu_text</item>
+    </style>
 </resources>

@@ -50,6 +50,14 @@ class LedgerRepository(
     suspend fun setReminderEnabled(personId: Long, enabled: Boolean) =
         personDao.setReminderEnabled(personId, enabled)
 
+    suspend fun updateReminderConfig(
+        personId: Long,
+        enabled: Boolean,
+        frequency: String,
+        prefix: String,
+        suffix: String
+    ) = personDao.updateReminderConfig(personId, enabled, frequency, prefix, suffix)
+
     suspend fun addTransaction(t: Transaction): Long = transactionDao.insert(t)
 
     suspend fun updateTransaction(t: Transaction) = transactionDao.update(t)
