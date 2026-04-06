@@ -29,6 +29,7 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        (application as MyApp).checkAndRunDailyReminderIfNeeded()
         b = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(b.root)
         setSupportActionBar(b.toolbar)
@@ -80,6 +81,11 @@ class HomeActivity : AppCompatActivity() {
         }
 
         observeViewModel()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (application as MyApp).checkAndRunDailyReminderIfNeeded()
     }
 
     private fun observeViewModel() {

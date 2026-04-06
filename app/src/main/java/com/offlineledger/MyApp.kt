@@ -1,12 +1,15 @@
 package com.offlineledger
 
 import android.app.Application
+import androidx.work.ExistingWorkPolicy
 import androidx.work.*
 import com.offlineledger.backup.BackupWorker
 import com.offlineledger.backup.ReminderWorker
 import com.offlineledger.data.db.AppDatabase
 import com.offlineledger.data.repository.LedgerRepository
-import java.util.*
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 import java.util.concurrent.TimeUnit
 
 class MyApp : Application() {
@@ -19,7 +22,8 @@ class MyApp : Application() {
     override fun onCreate() {
         super.onCreate()
         scheduleBackupIfEnabled(forceReschedule = false)
-        scheduleReminderChecks()
+        WorkManager.getInstance(this).cancelUniqueWork(LEGACY_REMINDER_WORK_NAME)
+        checkAndRunDailyReminderIfNeeded()
     }
 
     fun scheduleBackupIfEnabled(forceReschedule: Boolean = true) {
@@ -42,29 +46,28 @@ class MyApp : Application() {
         )
     }
 
-    private fun scheduleReminderChecks() {
-        // Run every day at 10:00 AM and let worker decide which persons are due.
-        val now = Calendar.getInstance()
-        val nextRun = Calendar.getInstance().apply {
-            set(Calendar.HOUR_OF_DAY, 10)
-            set(Calendar.MINUTE, 0)
-            set(Calendar.SECOND, 0)
-            set(Calendar.MILLISECOND, 0)
-            if (before(now)) {
-                add(Calendar.DAY_OF_YEAR, 1)
-            }
-        }
-        val initialDelay = nextRun.timeInMillis - now.timeInMillis
+    fun checkAndRunDailyReminderIfNeeded() {
+        val prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+        val today = SimpleDateFormat(DATE_FORMAT, Locale.US).format(Date())
+        val lastRunDate = prefs.getString(KEY_LAST_REMINDER_RUN_DATE, null)
+        if (lastRunDate == today) return
 
-        val request = PeriodicWorkRequestBuilder<ReminderWorker>(1, TimeUnit.DAYS)
-            .setInitialDelay(initialDelay, TimeUnit.MILLISECONDS)
+        val request = OneTimeWorkRequestBuilder<ReminderWorker>()
             .setConstraints(Constraints.Builder().build())
             .build()
 
-        WorkManager.getInstance(this).enqueueUniquePeriodicWork(
-            "person_reminder_check",
-            ExistingPeriodicWorkPolicy.KEEP,
+        WorkManager.getInstance(this).enqueueUniqueWork(
+            DAILY_REMINDER_WORK_NAME,
+            ExistingWorkPolicy.KEEP,
             request
         )
+    }
+
+    companion object {
+        const val PREFS_NAME = "ledger_prefs"
+        const val KEY_LAST_REMINDER_RUN_DATE = "last_reminder_run_date"
+        const val DATE_FORMAT = "yyyy-MM-dd"
+        const val DAILY_REMINDER_WORK_NAME = "daily_person_reminder"
+        private const val LEGACY_REMINDER_WORK_NAME = "person_reminder_check"
     }
 }

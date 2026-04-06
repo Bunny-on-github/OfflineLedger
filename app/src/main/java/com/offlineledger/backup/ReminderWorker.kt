@@ -37,11 +37,12 @@ class ReminderWorker(
         return try {
             val app = applicationContext as MyApp
             val repo = app.repository
+            val prefs = applicationContext.getSharedPreferences(MyApp.PREFS_NAME, Context.MODE_PRIVATE)
             val persons = repo.getReminderEnabledPersons()
             val today = Calendar.getInstance()
             val dayOfMonth = today.get(Calendar.DAY_OF_MONTH)
             val isSunday = today.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY
-            val todayKey = SimpleDateFormat("yyyy-MM-dd", Locale.US).format(Date())
+            val todayKey = SimpleDateFormat(MyApp.DATE_FORMAT, Locale.US).format(Date())
             val sentTodayPeople = repo.getAllReminderLogs().first()
                 .asSequence()
                 .filter { formatDateKey(it.sentAt) == todayKey }
@@ -88,6 +89,7 @@ class ReminderWorker(
                 }
             }
 
+            prefs.edit().putString(MyApp.KEY_LAST_REMINDER_RUN_DATE, todayKey).apply()
             Result.success()
         } catch (e: Exception) {
             e.printStackTrace()
