@@ -43,7 +43,7 @@ class HomeActivity : AppCompatActivity() {
             },
             onItemLongClick = { pwb ->
                 val blacklistLabel = if (pwb.person.isBlacklisted) "Remove from Blacklist" else "Blacklist"
-                MaterialAlertDialogBuilder(this, R.style.ThemeOverlay_OfflineLedger_OptionMenuDialog)
+                MaterialAlertDialogBuilder(this)
                     .setTitle(pwb.person.name)
                     .setItems(arrayOf("🧾 $blacklistLabel", "🗑️ Delete Person")) { _, which ->
                         when (which) {
