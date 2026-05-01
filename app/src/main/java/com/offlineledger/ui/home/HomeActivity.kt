@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.InputType
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.widget.SearchView
 import android.widget.EditText
 import android.widget.LinearLayout
 import androidx.activity.viewModels
@@ -21,7 +22,6 @@ import com.offlineledger.utils.formatCurrency
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlin.math.abs
-import androidx.core.widget.addTextChangedListener
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -81,7 +81,6 @@ class HomeActivity : AppCompatActivity() {
             }.show(supportFragmentManager, "add_person")
         }
 
-        b.etSearch.addTextChangedListener { vm.setSearchQuery(it?.toString().orEmpty()) }
         b.btnSortToggle.setOnClickListener { vm.toggleSortMode() }
 
         // Filter chips
@@ -135,10 +134,38 @@ class HomeActivity : AppCompatActivity() {
                 b.chipHideZero.isChecked = hide
             }
         }
+
+        lifecycleScope.launch {
+            vm.sortByAmount.collectLatest { byAmount ->
+                b.btnSortToggle.text = if (byAmount) "Sort: Amount" else "Sort: A-Z"
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_home, menu)
+        val searchItem = menu.findItem(R.id.action_search)
+        val searchView = searchItem.actionView as? SearchView
+        searchView?.queryHint = "Search people"
+        searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                vm.setSearchQuery(query.orEmpty())
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                vm.setSearchQuery(newText.orEmpty())
+                return true
+            }
+        })
+        searchItem.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
+            override fun onMenuItemActionExpand(item: MenuItem): Boolean = true
+
+            override fun onMenuItemActionCollapse(item: MenuItem): Boolean {
+                vm.setSearchQuery("")
+                return true
+            }
+        })
         return true
     }
 

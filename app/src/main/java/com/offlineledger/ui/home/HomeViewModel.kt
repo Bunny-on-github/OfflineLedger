@@ -49,7 +49,7 @@ class HomeViewModel(private val repo: LedgerRepository) : ViewModel() {
             }
             .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
-    val netBalance: StateFlow<Double> = personsWithBalance
+    val netBalance: StateFlow<Double> = repo.personsWithBalance
         .map { it.sumOf { p -> p.balance } }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), 0.0)
 
