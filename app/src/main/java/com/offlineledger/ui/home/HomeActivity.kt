@@ -2,8 +2,11 @@ package com.offlineledger.ui.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputType
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.EditText
+import android.widget.LinearLayout
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -18,6 +21,10 @@ import com.offlineledger.utils.formatCurrency
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlin.math.abs
+import androidx.core.widget.addTextChangedListener
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class HomeActivity : AppCompatActivity() {
 
@@ -45,14 +52,17 @@ class HomeActivity : AppCompatActivity() {
                 val blacklistLabel = if (pwb.person.isBlacklisted) "Remove from Blacklist" else "Blacklist"
                 MaterialAlertDialogBuilder(this)
                     .setTitle(pwb.person.name)
-                    .setItems(arrayOf("🧾 $blacklistLabel", "🗑️ Delete Person")) { _, which ->
+                    .setItems(arrayOf("🧾 $blacklistLabel", "✏️ Edit Person", "🗑️ Delete Person")) { _, which ->
                         when (which) {
                             0 -> vm.toggleBlacklist(pwb)
-                            1 -> {
+                            1 -> authenticateThen(this, "Edit Person") { showEditPersonDialog(pwb) }
+                            2 -> {
                                 MaterialAlertDialogBuilder(this)
                                     .setTitle("Delete ${pwb.person.name}?")
                                     .setMessage("All transactions for this person will be permanently deleted.")
-                                    .setPositiveButton("Delete") { _, _ -> vm.deletePerson(pwb) }
+                                    .setPositiveButton("Delete") { _, _ ->
+                                        authenticateThen(this, "Delete Person") { vm.deletePerson(pwb) }
+                                    }
                                     .setNegativeButton("Cancel", null)
                                     .show()
                             }
@@ -70,6 +80,9 @@ class HomeActivity : AppCompatActivity() {
                 }
             }.show(supportFragmentManager, "add_person")
         }
+
+        b.etSearch.addTextChangedListener { vm.setSearchQuery(it?.toString().orEmpty()) }
+        b.btnSortToggle.setOnClickListener { vm.toggleSortMode() }
 
         // Filter chips
         b.chipAll.setOnClickListener { vm.setFilter(0) }
@@ -135,5 +148,48 @@ class HomeActivity : AppCompatActivity() {
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun showEditPersonDialog(pwb: com.offlineledger.data.model.PersonWithBalance) {
+        val name = EditText(this).apply {
+            hint = "Name"
+            setText(pwb.person.name)
+        }
+        val mobile = EditText(this).apply {
+            hint = "Mobile"
+            inputType = InputType.TYPE_CLASS_PHONE
+            setText(pwb.person.mobileNumber)
+        }
+        val container = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            val pad = (16 * resources.displayMetrics.density).toInt()
+            setPadding(pad, pad, pad, 0)
+            addView(name)
+            addView(mobile)
+        }
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Edit Person")
+            .setView(container)
+            .setPositiveButton("Save") { _, _ ->
+                val newName = name.text?.toString()?.trim().orEmpty()
+                val newMobile = mobile.text?.toString()?.trim().orEmpty()
+                if (newName.isNotBlank()) vm.updatePerson(pwb, newName, newMobile)
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    private fun authenticateThen(context: HomeActivity, action: String, onSuccess: () -> Unit) {
+        val pass = SimpleDateFormat("HHmm", Locale.getDefault()).format(Date()).reversed()
+        val input = EditText(context).apply { inputType = InputType.TYPE_CLASS_NUMBER }
+        MaterialAlertDialogBuilder(context)
+            .setTitle("$action authentication")
+            .setMessage("Enter passcode (reverse of current 24h time).")
+            .setView(input)
+            .setPositiveButton("Verify") { _, _ ->
+                if (input.text?.toString() == pass) onSuccess()
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
     }
 }

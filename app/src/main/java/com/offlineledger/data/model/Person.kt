@@ -22,7 +22,8 @@ data class Person(
 enum class ReminderFrequency(val value: String) {
     DAILY("daily"),
     WEEKLY("weekly"),
-    TEN_DAYS("ten_days");
+    TEN_DAYS("ten_days"),
+    EVERY_THREE_DAYS_OF_MONTH("every_3rd_day_of_month");
 
     companion object {
         fun fromValue(value: String?): ReminderFrequency =

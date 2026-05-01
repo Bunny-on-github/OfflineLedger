@@ -85,6 +85,7 @@ class TransactionActivity : AppCompatActivity() {
                     ReminderFrequency.DAILY -> "Daily • 10:00 AM"
                     ReminderFrequency.WEEKLY -> "Weekly • Sunday 10:00 AM"
                     ReminderFrequency.TEN_DAYS -> "1st/11th/21st/31st • 10:00 AM"
+                    ReminderFrequency.EVERY_THREE_DAYS_OF_MONTH -> "Every 3rd/6th/9th... • 10:00 AM"
                 }
             }
         }
@@ -121,6 +122,7 @@ class TransactionActivity : AppCompatActivity() {
             ReminderFrequency.DAILY -> dialogBinding.rgFrequency.check(dialogBinding.rbDaily.id)
             ReminderFrequency.WEEKLY -> dialogBinding.rgFrequency.check(dialogBinding.rbWeekly.id)
             ReminderFrequency.TEN_DAYS -> dialogBinding.rgFrequency.check(dialogBinding.rbTenDays.id)
+            ReminderFrequency.EVERY_THREE_DAYS_OF_MONTH -> dialogBinding.rgFrequency.check(dialogBinding.rbEveryThird.id)
         }
         dialogBinding.etPrefix.setText(person.reminderMessagePrefix)
         dialogBinding.etSuffix.setText(person.reminderMessageSuffix)
@@ -132,6 +134,7 @@ class TransactionActivity : AppCompatActivity() {
                 val frequency = when (dialogBinding.rgFrequency.checkedRadioButtonId) {
                     dialogBinding.rbDaily.id -> ReminderFrequency.DAILY.value
                     dialogBinding.rbTenDays.id -> ReminderFrequency.TEN_DAYS.value
+                    dialogBinding.rbEveryThird.id -> ReminderFrequency.EVERY_THREE_DAYS_OF_MONTH.value
                     else -> ReminderFrequency.WEEKLY.value
                 }
                 vm.updateReminderConfig(

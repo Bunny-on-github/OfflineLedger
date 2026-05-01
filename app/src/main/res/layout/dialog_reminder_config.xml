@@ -36,6 +36,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Every 10 days (1st, 11th, 21st, 31st)" />
+    
+        <RadioButton
+            android:id="@+id/rbEveryThird"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Monthly days divisible by 3 (3rd, 6th, 9th...)" />
     </RadioGroup>
 
     <com.google.android.material.textfield.TextInputLayout
