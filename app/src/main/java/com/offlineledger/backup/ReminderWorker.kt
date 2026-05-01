@@ -100,6 +100,7 @@ class ReminderWorker(
             ReminderFrequency.DAILY -> true
             ReminderFrequency.WEEKLY -> isSunday
             ReminderFrequency.TEN_DAYS -> dayOfMonth == 1 || dayOfMonth == 11 || dayOfMonth == 21 || dayOfMonth == 31
+            ReminderFrequency.EVERY_THREE_DAYS_OF_MONTH -> dayOfMonth % 3 == 0
         }
     }
 
