@@ -54,33 +54,7 @@
                 android:textSize="32sp"
                 android:layout_marginBottom="4dp"/>
 
-            <!-- Receive / owe filter chips -->
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chipGroupBalanceFilter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="12dp"
-                app:singleSelection="true"
-                app:selectionRequired="false">
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipYouWillReceive"
-                    style="@style/FilterChip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="You&#39;ll Receive"/>
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipYouOwe"
-                    style="@style/FilterChip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="You Owe"/>
-
-            </com.google.android.material.chip.ChipGroup>
-
-            <!-- Summary tiles -->
+            <!-- Summary tiles (used as receive/owe filters) -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -89,13 +63,17 @@
                 android:layout_marginBottom="16dp">
 
                 <LinearLayout
+                    android:id="@+id/tileYouWillReceive"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical"
                     android:background="@drawable/bg_card"
                     android:padding="12dp"
-                    android:layout_marginEnd="6dp">
+                    android:layout_marginEnd="6dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -116,13 +94,17 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/tileYouOwe"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical"
                     android:background="@drawable/bg_card"
                     android:padding="12dp"
-                    android:layout_marginStart="6dp">
+                    android:layout_marginStart="6dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
