@@ -220,7 +220,7 @@ class SettingsActivity : AppCompatActivity() {
         val input = EditText(this).apply { inputType = InputType.TYPE_CLASS_NUMBER }
         MaterialAlertDialogBuilder(this)
             .setTitle("Clear data authentication")
-            .setMessage("Enter reverse current time passcode (e.g., 20:15 → 5102).")
+            .setMessage("Enter passcode.")
             .setView(input)
             .setPositiveButton("Verify") { _, _ ->
                 if (input.text?.toString() == pass) {
