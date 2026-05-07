@@ -1,15 +1,19 @@
 package com.offlineledger.ui.home
 
 import android.content.Intent
+import android.animation.ArgbEvaluator
+import android.animation.ValueAnimator
 import android.os.Bundle
 import android.text.InputType
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.LinearLayout
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.offlineledger.MyApp
@@ -83,13 +87,15 @@ class HomeActivity : AppCompatActivity() {
 
         b.btnSortToggle.setOnClickListener { vm.toggleSortMode() }
 
-        // Filter chips
-        b.chipYouWillReceive.setOnClickListener {
-            vm.setFilter(if (b.chipYouWillReceive.isChecked) 1 else 0)
+        // Summary tiles replace receive/owe filter chips
+        b.tileYouWillReceive.setOnClickListener {
+            vm.setFilter(if (vm.filter.value == 1) 0 else 1)
         }
-        b.chipYouOwe.setOnClickListener {
-            vm.setFilter(if (b.chipYouOwe.isChecked) 2 else 0)
+        b.tileYouOwe.setOnClickListener {
+            vm.setFilter(if (vm.filter.value == 2) 0 else 2)
         }
+
+        b.chipAll.setOnClickListener { vm.setFilter(0) }
         b.chipHideZero.setOnClickListener {
             vm.setHideZeroBalance(b.chipHideZero.isChecked)
         }
@@ -126,8 +132,19 @@ class HomeActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             vm.filter.collectLatest { f ->
-                b.chipYouWillReceive.isChecked = f == 1
-                b.chipYouOwe.isChecked = f == 2
+                b.chipAll.isChecked = f == 0
+                updateFilterTileState(
+                    tile = b.tileYouWillReceive,
+                    title = b.tileYouWillReceive.getChildAt(0) as TextView,
+                    amount = b.tileYouWillReceive.getChildAt(1) as TextView,
+                    selected = f == 1
+                )
+                updateFilterTileState(
+                    tile = b.tileYouOwe,
+                    title = b.tileYouOwe.getChildAt(0) as TextView,
+                    amount = b.tileYouOwe.getChildAt(1) as TextView,
+                    selected = f == 2
+                )
             }
         }
 
@@ -142,6 +159,40 @@ class HomeActivity : AppCompatActivity() {
                 b.btnSortToggle.text = if (byAmount) "Sort: Amount" else "Sort: A-Z"
             }
         }
+    }
+
+
+    private fun updateFilterTileState(
+        tile: LinearLayout,
+        title: TextView,
+        amount: TextView,
+        selected: Boolean
+    ) {
+        val startColor = ((tile.tag as? Int) ?: ContextCompat.getColor(this, R.color.bg_card))
+        val endColor = ContextCompat.getColor(
+            this,
+            if (selected) R.color.chip_selected_bg else R.color.bg_card
+        )
+
+        ValueAnimator.ofObject(ArgbEvaluator(), startColor, endColor).apply {
+            duration = 180
+            addUpdateListener { animator ->
+                val color = animator.animatedValue as Int
+                tile.setBackgroundColor(color)
+                tile.tag = color
+            }
+            start()
+        }
+
+        tile.animate()
+            .scaleX(if (selected) 1.03f else 1f)
+            .scaleY(if (selected) 1.03f else 1f)
+            .translationZ(if (selected) 16f else 0f)
+            .setDuration(180)
+            .start()
+
+        title.setTextColor(ContextCompat.getColor(this, if (selected) R.color.primary_text else R.color.hint_text))
+        amount.alpha = if (selected) 1f else 0.92f
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
