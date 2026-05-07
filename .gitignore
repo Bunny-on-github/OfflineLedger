@@ -1,0 +1,52 @@
+# Gradle files
+.gradle/
+build/
+**/build/
+
+# Local configuration files
+local.properties
+
+# Android Studio / IntelliJ
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Kotlin/Java
+*.class
+*.jar
+*.war
+*.ear
+
+# Generated files
+**/generated/
+**/captures/
+
+# Crashlytics / Fabric
+crashlytics.properties
+fabric.properties
+
+# MacOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# npm / yarn
+node_modules/
+
+# Logs
+*.log
+
+# Package distribution
+*.ap_
+*.aab
+
+# Misc
+.gradle
+*/.gradle
+*/local.properties
+
+# Optional: keep your local keystore private
+*.jks
+*.keystore
