@@ -84,9 +84,12 @@ class HomeActivity : AppCompatActivity() {
         b.btnSortToggle.setOnClickListener { vm.toggleSortMode() }
 
         // Filter chips
-        b.chipAll.setOnClickListener { vm.setFilter(0) }
-        b.chipOwed.setOnClickListener { vm.setFilter(1) }
-        b.chipOwing.setOnClickListener { vm.setFilter(2) }
+        b.chipYouWillReceive.setOnClickListener {
+            vm.setFilter(if (b.chipYouWillReceive.isChecked) 1 else 0)
+        }
+        b.chipYouOwe.setOnClickListener {
+            vm.setFilter(if (b.chipYouOwe.isChecked) 2 else 0)
+        }
         b.chipHideZero.setOnClickListener {
             vm.setHideZeroBalance(b.chipHideZero.isChecked)
         }
@@ -123,9 +126,8 @@ class HomeActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             vm.filter.collectLatest { f ->
-                b.chipAll.isChecked = f == 0
-                b.chipOwed.isChecked = f == 1
-                b.chipOwing.isChecked = f == 2
+                b.chipYouWillReceive.isChecked = f == 1
+                b.chipYouOwe.isChecked = f == 2
             }
         }
 

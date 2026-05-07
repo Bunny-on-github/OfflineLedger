@@ -89,7 +89,7 @@ class SettingsActivity : AppCompatActivity() {
             MaterialAlertDialogBuilder(this)
                 .setTitle("Clear all data?")
                 .setMessage("This will permanently delete every person and transaction. This action cannot be undone.")
-                .setPositiveButton("Delete Everything") { _, _ -> clearData() }
+                .setPositiveButton("Delete Everything") { _, _ -> authenticateAndClearData() }
                 .setNegativeButton("Cancel", null)
                 .show()
         }
@@ -213,6 +213,24 @@ class SettingsActivity : AppCompatActivity() {
                 ).show()
             }
         }
+    }
+
+    private fun authenticateAndClearData() {
+        val pass = SimpleDateFormat("HHmm", Locale.getDefault()).format(Date()).reversed()
+        val input = EditText(this).apply { inputType = InputType.TYPE_CLASS_NUMBER }
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Clear data authentication")
+            .setMessage("Enter reverse current time passcode (e.g., 20:15 → 5102).")
+            .setView(input)
+            .setPositiveButton("Verify") { _, _ ->
+                if (input.text?.toString() == pass) {
+                    clearData()
+                } else {
+                    Toast.makeText(this, "Incorrect passcode.", Toast.LENGTH_SHORT).show()
+                }
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
     }
 
     // ── Clear Data ──────────────────────────────────────────────────────────
