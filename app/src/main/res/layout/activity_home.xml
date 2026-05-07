@@ -167,7 +167,14 @@
                     android:letterSpacing="0.08"
                     android:fontFamily="monospace"
                     android:gravity="center_vertical"/>
-
+                
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipAll"
+                    style="@style/FilterChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="All"
+                    android:checked="true"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/btnSortToggle"
